@@ -57,9 +57,19 @@ PYTORCH_CUDA_VERSIONS: dict[str, list[str]] = {
 
 # CUDA architectures to build against for each PyTorch version.
 TORCH_CUDA_ARCH_LIST = {
-    "12.8": "7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX",
-    "12.9": "7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX",
-    "13.0": "7.5;8.0;8.6;9.0;10.0;11.0;12.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/d990dada86a8ad94882b5c23e859b88c0c255bda/torch/utils/cpp_extension.py#L1938
+    ("2.4", "12.8"): "7.0;7.5;8.0;8.6;9.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/32f585d9346e316e554c8d9bf7548af9f62141fc/torch/utils/cpp_extension.py#L1937
+    ("2.5", "12.8"): "7.0;7.5;8.0;8.6;9.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/1eba9b3aa3c43f86f4a2c807ac8e12c4a7767340/torch/utils/cpp_extension.py#L2030
+    ("2.6", "12.8"): "7.0;7.5;8.0;8.6;9.0;10.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/134179474539648ba7dee1317959529fbd0e7f89/.ci/manywheel/build_cuda.sh#L55
+    ("2.7", "12.8"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/ba56102387ef21a3b04b357e5b183d48f0afefc7/.ci/manywheel/build_cuda.sh#L56
+    ("2.8", "12.9"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    # https://github.com/pytorch/pytorch/blob/0fabc3ba44823f257e70ce397d989c8de5e362c1/.ci/manywheel/build_cuda.sh#L56
+    ("2.9", "12.9"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    ("2.9", "13.0"): "7.5;8.0;8.6;9.0;10.0;11.0;12.0+PTX",
 }
 
 # The glibc version to use for each PyTorch version, for manylinux builds.
@@ -67,8 +77,8 @@ TORCH_CUDA_ARCH_LIST = {
 TORCH_GLIBC_VERSION: dict[str, str] = {
     "2.4": "2_17",
     "2.5": "2_17",
-    "2.6": "2_24",
-    "2.7": "2_24",
+    "2.6": "2_27",
+    "2.7": "2_27",
     "2.8": "2_28",
     "2.9": "2_28",
 }
@@ -211,7 +221,10 @@ def main() -> None:
         )
 
         row["TORCH_CUDA_ARCH_LIST"] = TORCH_CUDA_ARCH_LIST[
-            f"{cuda_version.major}.{cuda_version.minor}"
+            (
+                f"{torch_version.major}.{torch_version.minor}",
+                f"{cuda_version.major}.{cuda_version.minor}",
+            )
         ]
 
         # RUNNER: the GitHub Actions runner to use.
