@@ -52,7 +52,7 @@ PYTORCH_CUDA_VERSIONS: dict[str, list[str]] = {
     "2.6": ["12.8"],
     "2.7": ["12.8"],
     "2.8": ["12.9"],
-    "2.9": ["12.9", "13.0"],
+    "2.9": ["12.9"],
 }
 
 # CUDA architectures to build against for each PyTorch version.
