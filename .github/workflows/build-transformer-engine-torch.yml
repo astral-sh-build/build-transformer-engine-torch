@@ -145,6 +145,7 @@ jobs:
             TORCH_CUDA_ARCH_LIST=${{ env.TORCH_CUDA_ARCH_LIST }}
             TORCH_CUDA_VERSION=${{ env.TORCH_CUDA_VERSION }}
             NVTE_PYTORCH_FORCE_CXX11_ABI=${{ matrix.cxx11-abi }}
+            NVTE_RELEASE_BUILD=1
             CI_AUDITWHEEL_EXCLUDES="${{ env.CI_AUDITWHEEL_EXCLUDES }}"
           CIBW_SKIP: "*musllinux*"
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: "auditwheel repair -w /tmp/cibuildwheel/repaired_wheel {wheel} ${CI_AUDITWHEEL_EXCLUDES}"
