@@ -130,7 +130,8 @@ jobs:
           CIBW_BEFORE_BUILD_LINUX: >
             pip install setuptools wheel &&
             pip install typing-extensions==4.12.2 &&
-            pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION}
+            pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
+            bash build_scripts/prepare_for_build.sh ${{ steps.transformer-engine-version.outputs.version }}
           CIBW_ENVIRONMENT: >
             PATH=$PATH:/root/.local/bin
             CUDA_HOME="/usr/local/cuda-${{ env.MANYLINUX_CUDA_VERSION }}"
