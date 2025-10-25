@@ -24,7 +24,7 @@ index be6a1d75..40217c52 100644
          cmdclass={"build_ext": CMakeBuildExtension},
          setup_requires=[
 -            "torch>=2.1",
-+            f"torch=={TORCH_MAJOR}.{TORCH_MINOR}.*"
++            f"torch=={TORCH_MAJOR}.{TORCH_MINOR}.*",
              "nvidia-cuda-runtime-cu12",
              "nvidia-cublas-cu12",
              "nvidia-cudnn-cu12",
