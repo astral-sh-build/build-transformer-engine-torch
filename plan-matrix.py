@@ -176,7 +176,7 @@ def main() -> None:
                     }
 
                     if row not in EXCLUSIONS:
-                            rows.append(row)
+                        rows.append(row)
 
     # Transform each row to add various nice-to-have representations of fields.
     for row in rows:
@@ -234,6 +234,15 @@ def main() -> None:
             row["RUNNER"] = "depot-ubuntu-24.04-arm-64"
         else:
             raise ValueError(f"Unknown target arch: {row['target-arch']}")
+
+        # `NVTE_CUDA_ARCHS`: the CUDA architectures to build against for each PyTorch version.
+        # Like `TORCH_CUDA_ARCH_LIST`, but without the major-minor split (e.g., `75` instead of `7.5`).
+        nvte_cuda_archs = []
+        for arch in row["TORCH_CUDA_ARCH_LIST"].split(";"):
+            arch = arch.removesuffix("+PTX")
+            major, minor = arch.split(".")
+            nvte_cuda_archs.append(f"{major}{minor}")
+        row["NVTE_CUDA_ARCHS"] = ";".join(nvte_cuda_archs)
 
     print(json.dumps(rows))
 
