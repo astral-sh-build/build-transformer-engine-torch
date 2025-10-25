@@ -1,17 +1,24 @@
 diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/setup.py
-index 4499c288..62537918 100644
+index 4499c288..67869afd 100644
 --- a/transformer_engine/pytorch/setup.py
 +++ b/transformer_engine/pytorch/setup.py
-@@ -19,6 +19,9 @@ except ImportError as e:
-     raise RuntimeError("This package needs Torch to build.") from e
+@@ -14,6 +14,7 @@ from pathlib import Path
+ import setuptools
  
+ try:
++    import torch
+     from torch.utils.cpp_extension import BuildExtension
+ except ImportError as e:
+     raise RuntimeError("This package needs Torch to build.") from e
+@@ -37,6 +38,8 @@ from build_tools.pytorch import setup_pytorch_extension
+ os.environ["NVTE_PROJECT_BUILDING"] = "1"
+ CMakeBuildExtension = get_build_ext(BuildExtension, True)
  
 +TORCH_MAJOR = int(torch.__version__.split(".")[0])
 +TORCH_MINOR = int(torch.__version__.split(".")[1])
-+
- current_file_path = Path(__file__).parent.resolve()
- build_tools_dir = current_file_path.parent.parent / "build_tools"
- if bool(int(os.getenv("NVTE_RELEASE_BUILD", "0"))) or os.path.isdir(build_tools_dir):
+ 
+ if __name__ == "__main__":
+     # Extensions
 @@ -55,7 +58,7 @@ if __name__ == "__main__":
          description="Transformer acceleration library - Torch Lib",
          ext_modules=ext_modules,

@@ -1,0 +1,20 @@
+diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/setup.py
+index ae1b5780..dd6b2f77 100644
+--- a/transformer_engine/pytorch/setup.py
++++ b/transformer_engine/pytorch/setup.py
+@@ -19,6 +19,15 @@ except ImportError as e:
+     raise RuntimeError("This package needs Torch to build.") from e
+ 
+ 
++FORCE_CXX11_ABI = os.getenv("NVTE_PYTORCH_FORCE_CXX11_ABI", "FALSE") == "TRUE"
++
++# HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
++# torch._C._GLIBCXX_USE_CXX11_ABI
++# https://github.com/pytorch/pytorch/blob/8472c24e3b5b60150096486616d98b7bea01500b/torch/utils/cpp_extension.py#L920
++if FORCE_CXX11_ABI:
++    import torch
++    torch._C._GLIBCXX_USE_CXX11_ABI = True
++
+ current_file_path = Path(__file__).parent.resolve()
+ build_tools_dir = current_file_path.parent.parent / "build_tools"
+ if bool(int(os.getenv("NVTE_RELEASE_BUILD", "0"))) or os.path.isdir(build_tools_dir):
