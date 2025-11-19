@@ -10,7 +10,7 @@ on:
       TRANSFORMER_ENGINE_VERSION:
         description: "TransformerEngine version"
         required: true
-        default: "v2.2.1"
+        default: "v2.9"
         type: string
   release:
     types: [created]
@@ -62,8 +62,8 @@ jobs:
         id: transformer-engine-version
         run: |
           # Extract TransformerEngine version from tag. Tags can be either:
-          # - v2.2.1 (legacy format; maps directly to TransformerEngine version)
-          # - v2.2.1-r1 (new format; strip -rN suffix to get TransformerEngine version)
+          # - v2.9 (legacy format; maps directly to TransformerEngine version)
+          # - v2.9-r1 (new format; strip -rN suffix to get TransformerEngine version)
           if [ "${GITHUB_EVENT_NAME}" = "release" ]; then
             TAG="${GITHUB_REF_NAME}"
             # Remove -rN suffix if present
@@ -71,7 +71,7 @@ jobs:
           elif [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             TRANSFORMER_ENGINE_VERSION="${INPUTS_TRANSFORMER_ENGINE_VERSION}"
           else
-            TRANSFORMER_ENGINE_VERSION="v2.2.1"
+            TRANSFORMER_ENGINE_VERSION="v2.9"
           fi
           echo "version=${TRANSFORMER_ENGINE_VERSION}" >> $GITHUB_OUTPUT
           echo "Using TransformerEngine version: ${TRANSFORMER_ENGINE_VERSION}"

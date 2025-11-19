@@ -1,0 +1,24 @@
+diff --git a/build_tools/pytorch.py b/build_tools/pytorch.py
+index a974e370..6c83e27b 100644
+--- a/build_tools/pytorch.py
++++ b/build_tools/pytorch.py
+@@ -7,6 +7,7 @@ import os
+ from pathlib import Path
+ 
+ import setuptools
++import torch
+ 
+ from .utils import all_files_in_dir, cuda_version, get_cuda_include_dirs, debug_build_enabled
+ from typing import List
+@@ -14,7 +15,10 @@ from typing import List
+ 
+ def install_requirements() -> List[str]:
+     """Install dependencies for TE/PyTorch extensions."""
+-    return ["torch>=2.1", "einops", "onnxscript", "onnx"]
++    TORCH_MAJOR = int(torch.__version__.split(".")[0])
++    TORCH_MINOR = int(torch.__version__.split(".")[1])
++
++    return [f"torch=={TORCH_MAJOR}.{TORCH_MINOR}.*", "einops", "onnxscript", "onnx"]
+ 
+ 
+ def test_requirements() -> List[str]:
