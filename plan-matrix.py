@@ -9,6 +9,9 @@ import json
 
 from packaging.version import Version
 
+# The minimum Python version supported by TransformerEngine (as of v2.9).
+MIN_PYTHON_VERSION = "3.10"
+
 TRANSFORMER_ENGINE_SUPPORTED_TORCH_VERSIONS = [
     "2.4.1",
     "2.5.1",
@@ -154,6 +157,10 @@ def main() -> None:
             torch_version_parsed = Version(torch_version)
             torch_x_y = f"{torch_version_parsed.major}.{torch_version_parsed.minor}"
             for python_version in TORCH_PYTHON_SUPPORT[torch_x_y]:
+                python_version_parsed = Version(python_version)
+                if python_version_parsed < Version(MIN_PYTHON_VERSION):
+                    continue
+
                 cuda_versions = PYTORCH_CUDA_VERSIONS[(torch_x_y, target_arch)]
                 for cuda_version in cuda_versions:
                     cuda_version_parsed = Version(cuda_version)
