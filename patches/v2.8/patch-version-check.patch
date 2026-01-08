@@ -1,0 +1,24 @@
+diff --git i/transformer_engine/common/__init__.py w/transformer_engine/common/__init__.py
+index dd1ec480..ae9f4067 100644
+--- i/transformer_engine/common/__init__.py
++++ w/transformer_engine/common/__init__.py
+@@ -140,10 +140,16 @@ def load_framework_extension(framework: str) -> None:
+         assert _is_pip_package_installed(
+             "transformer_engine_cu12"
+         ), "Could not find `transformer-engine-cu12`."
++
++        # Compare base versions only (strip local version identifiers after '+')
++        module_base_version = version(module_name).split('+')[0]
++        te_base_version = version("transformer-engine").split('+')[0]
++        te_cu12_base_version = version("transformer-engine-cu12").split('+')[0]
++
+         assert (
+-            version(module_name)
+-            == version("transformer-engine")
+-            == version("transformer-engine-cu12")
++            module_base_version
++            == te_base_version
++            == te_cu12_base_version
+         ), (
+             "TransformerEngine package version mismatch. Found"
+             f" {module_name} v{version(module_name)}, transformer-engine"
