@@ -10,7 +10,7 @@ on:
       TRANSFORMER_ENGINE_VERSION:
         description: "TransformerEngine version"
         required: true
-        default: "v2.10"
+        default: "v2.11"
         type: string
   release:
     types: [created]
@@ -71,7 +71,7 @@ jobs:
           elif [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             TRANSFORMER_ENGINE_VERSION="${INPUTS_TRANSFORMER_ENGINE_VERSION}"
           else
-            TRANSFORMER_ENGINE_VERSION="v2.10"
+            TRANSFORMER_ENGINE_VERSION="v2.11"
           fi
           echo "version=${TRANSFORMER_ENGINE_VERSION}" >> $GITHUB_OUTPUT
           echo "Using TransformerEngine version: ${TRANSFORMER_ENGINE_VERSION}"
