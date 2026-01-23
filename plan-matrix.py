@@ -6,6 +6,7 @@
 # ///
 
 import json
+import os
 
 from packaging.version import Version
 
@@ -261,6 +262,9 @@ def main() -> None:
             nvte_cuda_archs.append(f"{major}{minor}")
         row["NVTE_CUDA_ARCHS"] = ";".join(nvte_cuda_archs)
 
+    # For PR builds, limit matrix to a single entry for faster CI.
+    if os.environ.get("LIMIT_MATRIX") == "1":
+        rows = rows[:1]
     print(json.dumps(rows))
 
 

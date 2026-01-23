@@ -1,0 +1,18 @@
+diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/setup.py
+index 1234567..abcdefg 100644
+--- a/transformer_engine/pytorch/setup.py
++++ b/transformer_engine/pytorch/setup.py
+@@ -108,8 +108,14 @@ class CachedWheelsCommand(_bdist_wheel):
+
+ __version__ = te_version()
++
++# Auto-generate local version from CUDA and PyTorch versions.
++torch_version = ".".join(torch.__version__.split(".")[:2])
++if torch.version.cuda:
++    __version__ = f"{__version__}+cu.{torch.version.cuda}.torch.{torch_version}"
++
+ cuda_major_version = parse(torch.version.cuda).major
+ assert cuda_major_version in (12, 13), f"Unsupported cuda version {torch.version.cuda}."
+-te_core = f"transformer_engine_cu{cuda_major_version}=={__version__}"
++te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}"
+ install_requires = install_requirements() + [te_core]
