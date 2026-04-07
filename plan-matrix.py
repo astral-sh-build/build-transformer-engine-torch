@@ -272,8 +272,11 @@ def main() -> None:
             nvte_cuda_archs.append(f"{major}{minor}")
         row["NVTE_CUDA_ARCHS"] = ";".join(nvte_cuda_archs)
 
-    # For PR builds, limit matrix to a single entry for faster CI.
+    # For PR builds, exercise a single PyTorch 2.11 wheel to keep CI fast.
     if os.environ.get("LIMIT_MATRIX") == "1":
+        rows = [row for row in rows if row["torch-version"] == "2.11.0"]
+        if not rows:
+            raise ValueError("LIMIT_MATRIX=1 expects a PyTorch 2.11 build row")
         rows = rows[:1]
     print(json.dumps(rows))
 
