@@ -196,6 +196,8 @@ jobs:
 
       - name: Upload wheels to release
         if: github.event_name == 'release'
-        run: gh release upload "${GITHUB_REF_NAME}" ./dist/*.whl --clobber
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: softprops/action-gh-release@6da8fa9354ddfdc4aeace5fc48d7f679b5214090 # zizmor: ignore[superfluous-actions] v2.4.1
+        with:
+          files: ./dist/*.whl
+          tag_name: ${{ github.ref_name }}
+          append_body: true
