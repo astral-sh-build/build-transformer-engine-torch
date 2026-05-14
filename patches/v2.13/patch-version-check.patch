@@ -1,0 +1,12 @@
+diff --git a/transformer_engine/common/__init__.py b/transformer_engine/common/__init__.py
+index 40933f1..186bc4b 100644
+--- a/transformer_engine/common/__init__.py
++++ b/transformer_engine/common/__init__.py
+@@ -180 +180,6 @@ def load_framework_extension(framework: str) -> None:
+-        assert version(module_name) == version("transformer-engine") == te_core_version, (
++        # Compare base versions only (strip local version identifiers after '+')
++        module_base_version = version(module_name).split('+')[0]
++        te_base_version = version("transformer-engine").split('+')[0]
++        te_core_base_version = te_core_version.split('+')[0]
++
++        assert module_base_version == te_base_version == te_core_base_version, (
