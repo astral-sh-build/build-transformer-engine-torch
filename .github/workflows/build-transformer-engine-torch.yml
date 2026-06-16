@@ -166,10 +166,12 @@ jobs:
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: "auditwheel repair -w /tmp/cibuildwheel/repaired_wheel {wheel} ${CI_AUDITWHEEL_EXCLUDES}"
           CIBW_BUILD_FRONTEND: "pip; args: --no-build-isolation"
 
-      - name: Embed SBOM into wheel
+      - name: Embed metadata into wheel
         run: |
           for wheel in dist/*.whl; do
             uv run --script build_scripts/embed_patches.py "$wheel" "build_scripts/patches/${TRANSFORMER_ENGINE_VERSION}" \
+              --license-expression "Apache-2.0" \
+              --license-file "LICENSE:LICENSE" \
               --source-repo "https://github.com/NVIDIA/TransformerEngine" \
               --source-tag "${TRANSFORMER_ENGINE_VERSION}" \
               --source-commit "${SOURCE_COMMIT}" \
