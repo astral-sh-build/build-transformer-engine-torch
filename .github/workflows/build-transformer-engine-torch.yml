@@ -68,7 +68,7 @@ jobs:
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             TAG="${INPUTS_RELEASE_TAG}"
             # Remove -rN suffix if present
-            TRANSFORMER_ENGINE_VERSION=$(printf '%s\\n' "${TAG}" | sed -E 's/-r[0-9]+$//')
+            TRANSFORMER_ENGINE_VERSION=$(sed -E 's/-r[0-9]+$//' <<<"${TAG}")
           else
             TRANSFORMER_ENGINE_VERSION="v2.16"
           fi
