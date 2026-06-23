@@ -42,6 +42,7 @@ $ uv pip install --index https://wheels.astral.sh/simple/cu128/ transformer-engi
 
 Wheels are available for the following Transformer Engine versions:
 
+- [`2.16.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.16)
 - [`2.15.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.15)
 - [`2.14.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.14)
 - [`2.13.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.13)
@@ -57,7 +58,7 @@ Wheels are available for the following Transformer Engine versions:
 - [`2.3.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.3)
 - [`2.2.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.2.1)
 
-The latest release, Transformer Engine 2.15.0, supports the following
+The latest release, Transformer Engine 2.16.0, supports the following
 combinations:
 
 | PyTorch | Python    | `x86_64` CUDA          | `aarch64` CUDA         |
@@ -67,9 +68,10 @@ combinations:
 | 2.6.0   | 3.10–3.12 | 12.4, 12.6             | 12.6                   |
 | 2.7.1   | 3.10–3.13 | 12.6, 12.8             | 12.8                   |
 | 2.8.0   | 3.10–3.13 | 12.6, 12.8, 12.9       | 12.9                   |
-| 2.9.0   | 3.10–3.14 | 12.6, 12.8, 12.9, 13.0 | 12.6, 12.8, 12.9, 13.0 |
+| 2.9.1   | 3.10–3.13 | 12.6, 12.8, 12.9, 13.0 | 12.6, 12.8, 12.9, 13.0 |
 | 2.10.0  | 3.10–3.14 | 12.6, 12.8, 12.9, 13.0 | 12.6, 12.8, 12.9, 13.0 |
 | 2.11.0  | 3.10–3.14 | 12.6, 12.8, 12.9, 13.0 | 12.6, 12.8, 12.9, 13.0 |
+| 2.12.1  | 3.10–3.14 | 12.6, 13.0, 13.2       | 12.6, 13.0, 13.2       |
 
 ## License
 
