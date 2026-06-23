@@ -70,7 +70,7 @@ jobs:
             # Remove -rN suffix if present
             TRANSFORMER_ENGINE_VERSION=$(printf '%s\\n' "${TAG}" | sed -E 's/-r[0-9]+$//')
           else
-            TRANSFORMER_ENGINE_VERSION="v2.15"
+            TRANSFORMER_ENGINE_VERSION="v2.16"
           fi
           echo "version=${TRANSFORMER_ENGINE_VERSION}" >> $GITHUB_OUTPUT
           echo "Using TransformerEngine version: ${TRANSFORMER_ENGINE_VERSION}"
