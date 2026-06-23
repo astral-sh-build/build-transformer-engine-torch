@@ -1,0 +1,12 @@
+diff --git a/build_tools/pytorch.py b/build_tools/pytorch.py
+index 533adda..7b65865 100644
+--- a/build_tools/pytorch.py
++++ b/build_tools/pytorch.py
+@@ -10,0 +11 @@ import setuptools
++import torch
+@@ -24 +25,4 @@ def install_requirements() -> List[str]:
+-    return ["torch>=2.1", "einops", "onnxscript", "onnx", "packaging", "pydantic", "nvdlfw-inspect"]
++    TORCH_MAJOR = int(torch.__version__.split(".")[0])
++    TORCH_MINOR = int(torch.__version__.split(".")[1])
++
++    return [f"torch=={TORCH_MAJOR}.{TORCH_MINOR}.*", "einops", "onnxscript", "onnx", "packaging", "pydantic", "nvdlfw-inspect"]
