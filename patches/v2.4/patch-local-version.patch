@@ -1,0 +1,25 @@
+diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/setup.py
+--- a/transformer_engine/pytorch/setup.py
++++ b/transformer_engine/pytorch/setup.py
+@@ -11,5 +11,6 @@ from pathlib import Path
+
+ import setuptools
++import torch
+
+ try:
+     from torch.utils.cpp_extension import BuildExtension
+@@ -48,7 +49,13 @@ if __name__ == "__main__":
+     ]
+
++    # Auto-generate local version from CUDA and PyTorch versions.
++    version = te_version()
++    torch_version = ".".join(torch.__version__.split(".")[:2])
++    if torch.version.cuda:
++        version = f"{version}+cu.{torch.version.cuda}.torch.{torch_version}"
++
+     # Configure package
+     setuptools.setup(
+         name="transformer_engine_torch",
+-        version=te_version(),
++        version=version,
+         description="Transformer acceleration library - Torch Lib",

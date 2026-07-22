@@ -1,0 +1,18 @@
+diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/setup.py
+--- a/transformer_engine/pytorch/setup.py
++++ b/transformer_engine/pytorch/setup.py
+@@ -151,7 +151,13 @@ if __name__ == "__main__":
+     # us to detect CUDA version dynamically during compilation and
+     # choose the correct wheel for te core lib.
+     __version__ = te_version()
++
++    # Auto-generate local version from CUDA and PyTorch versions.
++    torch_version = ".".join(torch.__version__.split(".")[:2])
++    if torch.version.cuda:
++        __version__ = f"{__version__}+cu.{torch.version.cuda}.torch.{torch_version}"
++
+     cuda_major_version = parse(torch.version.cuda).major
+     assert cuda_major_version in (12, 13), f"Unsupported cuda version {torch.version.cuda}."
+-    te_core = f"transformer_engine_cu{cuda_major_version}=={__version__}"
++    te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}"
+     install_requires = install_requirements() + [te_core]
