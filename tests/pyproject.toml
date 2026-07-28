@@ -6,14 +6,17 @@ dependencies = [
     "numpy>=1.24,<3",
     "pytest>=8,<10",
     "torch==2.10.0+cu128",
+    "transformer-engine[pytorch]==2.16.0",
+    "transformer-engine-cu12==2.16.0+cu.12.8",
     "transformer-engine-torch==2.16.0+cu.12.8.torch.2.10",
-    "transformer-engine[core]==2.16.0",
 ]
 
 [tool.uv]
 environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
 
 [tool.uv.sources]
+transformer-engine = { index = "astral-cu128" }
+transformer-engine-cu12 = { index = "astral-cu128" }
 transformer-engine-torch = { index = "astral-cu128" }
 torch = { index = "pytorch-cu128" }
 

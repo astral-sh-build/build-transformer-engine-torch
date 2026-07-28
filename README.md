@@ -40,15 +40,21 @@ $ uv pip install --index https://wheels.astral.sh/simple/cu128/ transformer-engi
 
 ## GPU tests
 
-The `tests/` directory contains a locked uv project that installs the published CUDA 12.8 wheel from the Astral index
-alongside its matching CUDA-enabled PyTorch build. Run the tests on a Modal GPU with:
+The `tests/` directory contains a uv project that installs the CUDA 12.8
+Transformer Engine metapackage, CUDA core, and PyTorch extension from the Astral
+index alongside the matching official PyTorch build. All three Transformer
+Engine wheels must first be published to the Astral index. Once they are
+available, generate the lockfile locally and run the tests on a Modal GPU:
 
 ```console
+$ UV_DEFAULT_INDEX=https://pypi.org/simple uv lock --project tests
 $ modal run tests/modal_app.py
 ```
 
 Modal installs the locked dependencies in its Linux image and runs the pytest
-suite on an NVIDIA H100. The wheel is not installed on the local machine.
+suite on an NVIDIA H100. The tests discover the CUDA libraries supplied by
+PyTorch using `NVRTC_HOME` and `CURAND_HOME`; they do not install any wheels on
+the local machine or substitute Transformer Engine packages from PyPI.
 
 ## Supported versions
 
