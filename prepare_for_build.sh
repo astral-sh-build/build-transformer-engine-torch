@@ -2,7 +2,7 @@
 # Script to prepare the build environment for Transformer Engine (PyTorch).
 #
 # Example usage:
-#   ./prepare_for_build.sh v2.2.1
+#   ./prepare_for_build.sh v2.5
 
 set -euxo pipefail
 
@@ -10,7 +10,7 @@ export ROOT=`pwd`
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <transformer_engine_version>"
-    echo "Example: $0 v2.2.1"
+    echo "Example: $0 v2.5"
     exit 1
 fi
 
@@ -19,9 +19,10 @@ TRANSFORMER_ENGINE_VERSION=$1
 # Apply patches.
 patch_dir="${ROOT}/build_scripts/patches/${TRANSFORMER_ENGINE_VERSION}"
 
-# Not all Transformer Engine versions need patches.
+# Every supported Transformer Engine version has build patches.
 if [ ! -d "${patch_dir}" ]; then
-    echo "Warning: nothing to patch: patches/${TRANSFORMER_ENGINE_VERSION} directory does not exist"
+    echo "Error: unsupported Transformer Engine version: ${TRANSFORMER_ENGINE_VERSION}" >&2
+    exit 1
 else
     for patch in "${patch_dir}"/*.patch; do
         # Skip if no patch files exist (only .gitkeep)

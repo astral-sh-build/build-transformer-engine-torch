@@ -63,14 +63,18 @@ jobs:
         id: transformer-engine-version
         run: |
           # Extract TransformerEngine version from tag. Tags can be either:
-          # - v2.9 (legacy format; maps directly to TransformerEngine version)
-          # - v2.9-r1 (new format; strip -rN suffix to get TransformerEngine version)
+          # - v2.16 (maps directly to the supported TransformerEngine version)
+          # - v2.16-r1 (strip -rN to get the supported TransformerEngine version)
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             TAG="${INPUTS_RELEASE_TAG}"
             # Remove -rN suffix if present
             TRANSFORMER_ENGINE_VERSION=$(sed -E 's/-r[0-9]+$//' <<<"${TAG}")
           else
             TRANSFORMER_ENGINE_VERSION="v2.16"
+          fi
+          if [ "${TRANSFORMER_ENGINE_VERSION}" != "v2.16" ]; then
+            echo "::error::Only TransformerEngine v2.16 is supported; got ${TRANSFORMER_ENGINE_VERSION}"
+            exit 1
           fi
           echo "version=${TRANSFORMER_ENGINE_VERSION}" >> $GITHUB_OUTPUT
           echo "Using TransformerEngine version: ${TRANSFORMER_ENGINE_VERSION}"

@@ -282,9 +282,19 @@ def main() -> None:
             nvte_cuda_archs.append(f"{major}{minor}")
         row["NVTE_CUDA_ARCHS"] = ";".join(nvte_cuda_archs)
 
-    # For PR builds, limit matrix to a single entry for faster CI.
+    # For PR builds, test one representative wheel for each CUDA major.
     if os.environ.get("LIMIT_MATRIX") == "1":
-        rows = rows[:1]
+        rows = [
+            next(
+                row
+                for row in rows
+                if row["target-arch"] == "x86_64"
+                and row["torch-version"] == "2.10.0"
+                and row["python-version"] == "3.12"
+                and row["cuda-version"] == cuda_version
+            )
+            for cuda_version in ("12.8", "13.0")
+        ]
     print(json.dumps(rows))
 
 
