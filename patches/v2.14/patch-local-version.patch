@@ -11,4 +11,4 @@ index 99f6a99..f91a0ca 100644
 +
 @@ -167 +173 @@ if __name__ == "__main__":
 -    te_core = f"transformer_engine_cu{cuda_major_version}=={__version__}"
-+    te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}"
++    te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}+cu.{torch.version.cuda}"

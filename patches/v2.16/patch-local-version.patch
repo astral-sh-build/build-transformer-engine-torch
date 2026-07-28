@@ -15,5 +15,5 @@ diff --git a/transformer_engine/pytorch/setup.py b/transformer_engine/pytorch/se
      cuda_major_version = parse(torch.version.cuda).major
      assert cuda_major_version in (12, 13), f"Unsupported cuda version {torch.version.cuda}."
 -    te_core = f"transformer_engine_cu{cuda_major_version}=={__version__}"
-+    te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}"
++    te_core = f"transformer_engine_cu{cuda_major_version}=={te_version()}+cu.{torch.version.cuda}"
      install_requires = install_requirements() + [te_core]
