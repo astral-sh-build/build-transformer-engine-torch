@@ -40,7 +40,7 @@ $ uv pip install --index https://wheels.astral.sh/simple/cu128/ transformer-engi
 
 ## Supported versions
 
-Wheels are available for the following Transformer Engine versions:
+Wheels are available for Transformer Engine 2.5 and later:
 
 - [`2.16.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.16)
 - [`2.15.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.15)
@@ -54,9 +54,6 @@ Wheels are available for the following Transformer Engine versions:
 - [`2.7.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.7-r1)
 - [`2.6.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.6-r1)
 - [`2.5.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.5-r1)
-- [`2.4.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.4-r1)
-- [`2.3.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.3-r1)
-- [`2.2.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.2.1-r1)
 
 The latest release, Transformer Engine 2.16.0, supports the following
 combinations:
