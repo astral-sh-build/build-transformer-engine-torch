@@ -9,7 +9,7 @@ Python, PyTorch, CUDA, and CPU architectures.
 Following the PyTorch convention, artifacts are published to a separate index
 for each CUDA version. Each wheel has a local version suffix that identifies the
 CUDA and PyTorch versions it was built against, such as
-`transformer-engine-torch==2.15.0+cu.12.8.torch.2.11`, and requires the matching
+`transformer-engine-torch==2.16.0+cu.12.8.torch.2.11`, and requires the matching
 PyTorch release.
 
 Pre-built wheels are available on
@@ -40,23 +40,11 @@ $ uv pip install --index https://wheels.astral.sh/simple/cu128/ transformer-engi
 
 ## Supported versions
 
-Wheels are available for Transformer Engine 2.5 and later:
+Wheels are available for Transformer Engine 2.16:
 
 - [`2.16.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.16)
-- [`2.15.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.15)
-- [`2.14.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.14)
-- [`2.13.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.13)
-- [`2.12.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.12)
-- [`2.11.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.11-r2)
-- [`2.10.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.10-r1)
-- [`2.9.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.9-r1)
-- [`2.8.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.8-r1)
-- [`2.7.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.7-r1)
-- [`2.6.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.6-r1)
-- [`2.5.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.5-r1)
 
-The latest release, Transformer Engine 2.16.0, supports the following
-combinations:
+Transformer Engine 2.16.0 supports the following combinations:
 
 | PyTorch | Python    | `x86_64` CUDA          | `aarch64` CUDA         |
 | ------- | --------- | ---------------------- | ---------------------- |
