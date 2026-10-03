@@ -4,7 +4,7 @@ permissions: {}
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, "charlie/gpu-audit-*"]
   workflow_dispatch:
     inputs:
       release_tag:
@@ -63,18 +63,14 @@ jobs:
         id: transformer-engine-version
         run: |
           # Extract TransformerEngine version from tag. Tags can be either:
-          # - v2.16 (maps directly to the supported TransformerEngine version)
-          # - v2.16-r1 (strip -rN to get the supported TransformerEngine version)
+          # - v2.16.1 (maps directly to the supported TransformerEngine version)
+          # - v2.16.1-r1 (strip -rN to get the supported TransformerEngine version)
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
             TAG="${INPUTS_RELEASE_TAG}"
             # Remove -rN suffix if present
             TRANSFORMER_ENGINE_VERSION=$(sed -E 's/-r[0-9]+$//' <<<"${TAG}")
           else
-            TRANSFORMER_ENGINE_VERSION="v2.16"
-          fi
-          if [ "${TRANSFORMER_ENGINE_VERSION}" != "v2.16" ]; then
-            echo "::error::Only TransformerEngine v2.16 is supported; got ${TRANSFORMER_ENGINE_VERSION}"
-            exit 1
+            TRANSFORMER_ENGINE_VERSION="v2.16.1"
           fi
           echo "version=${TRANSFORMER_ENGINE_VERSION}" >> $GITHUB_OUTPUT
           echo "Using TransformerEngine version: ${TRANSFORMER_ENGINE_VERSION}"
@@ -140,7 +136,7 @@ jobs:
           # TODO(charlie): The PyTorch CUDA 12.9 index is missing cuda-bindings==12.9.4, but PyTorch 2.10 depends on it.
           CIBW_BEFORE_BUILD_LINUX: >
             pip install setuptools wheel &&
-            pip install typing-extensions==4.12.2 &&
+            pip install typing-extensions==4.16.0 &&
             if [ "${MATRIX_CUDA_VERSION}" = "129" ] && [ "${MATRIX_TORCH_VERSION}" = "2.10" ]; then uv pip install --system cuda-bindings==12.9.4; fi &&
             uv pip install --system --index-strategy unsafe-first-match torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
             bash build_scripts/prepare_for_build.sh ${{ steps.transformer-engine-version.outputs.version }}

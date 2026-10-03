@@ -10,7 +10,7 @@ import os
 
 from packaging.version import Version
 
-# Transformer Engine v2.16 supports Python 3.10+, PyTorch 2.1+, and CUDA 12+.
+# Transformer Engine v2.16.1 supports Python 3.10+, PyTorch 2.1+, and CUDA 12+.
 MIN_PYTHON_VERSION = "3.10"
 
 TRANSFORMER_ENGINE_SUPPORTED_TORCH_VERSIONS = [
@@ -23,14 +23,17 @@ TRANSFORMER_ENGINE_SUPPORTED_TORCH_VERSIONS = [
     "2.10.0",
     "2.11.0",
     "2.12.1",
+    "2.13.0",
+    "2.14.1",
 ]
 
 ARCH_TORCH_PAIRS = {
-    "x86_64": ["2.4.1", "2.5.1", "2.6.0", "2.7.1", "2.8.0", "2.9.1", "2.10.0", "2.11.0", "2.12.1"],
-    "aarch64": ["2.6.0", "2.7.1", "2.8.0", "2.9.1", "2.10.0", "2.11.0", "2.12.1"],
+    "x86_64": ["2.4.1", "2.5.1", "2.6.0", "2.7.1", "2.8.0", "2.9.1", "2.10.0", "2.11.0", "2.12.1", "2.13.0", "2.14.1"],
+    "aarch64": ["2.6.0", "2.7.1", "2.8.0", "2.9.1", "2.10.0", "2.11.0", "2.12.1", "2.13.0", "2.14.1"],
 }
 
 # Supported Python versions for each PyTorch version.
+# The default TE fuser uses torch.compile, which does not support Python 3.15.
 # See: https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
 TORCH_PYTHON_SUPPORT = {
     "2.4": ["3.9", "3.10", "3.11", "3.12"],
@@ -42,6 +45,8 @@ TORCH_PYTHON_SUPPORT = {
     "2.10": ["3.10", "3.11", "3.12", "3.13", "3.14"],
     "2.11": ["3.10", "3.11", "3.12", "3.13", "3.14"],
     "2.12": ["3.10", "3.11", "3.12", "3.13", "3.14"],
+    "2.13": ["3.10", "3.11", "3.12", "3.13", "3.14"],
+    "2.14": ["3.10", "3.11", "3.12", "3.13", "3.14"],
 }
 
 # Minimum and maximum CUDA versions for each PyTorch version.
@@ -56,6 +61,8 @@ PYTORCH_CUDA_RANGES: dict[str, tuple[str, str]] = {
     "2.10": ("12.6", "13.0"),
     "2.11": ("12.6", "13.0"),
     "2.12": ("12.6", "13.2"),
+    "2.13": ("12.6", "13.2"),
+    "2.14": ("12.6", "13.2"),
 }
 
 # Actual CUDA versions to build against for each PyTorch version.
@@ -78,6 +85,10 @@ PYTORCH_CUDA_VERSIONS: dict[tuple[str, str], list[str]] = {
     ("2.11", "aarch64"): ["12.6", "12.8", "12.9", "13.0"],
     ("2.12", "x86_64"): ["12.6", "13.0", "13.2"],
     ("2.12", "aarch64"): ["12.6", "13.0", "13.2"],
+    ("2.13", "x86_64"): ["12.6", "13.0", "13.2"],
+    ("2.13", "aarch64"): ["12.6", "13.0", "13.2"],
+    ("2.14", "x86_64"): ["12.6", "13.0", "13.2"],
+    ("2.14", "aarch64"): ["12.6", "13.0", "13.2"],
 }
 
 # CUDA architectures to build against for each PyTorch version.
@@ -115,6 +126,12 @@ TORCH_CUDA_ARCH_LIST = {
     ("2.12", "12.6"): "7.0;7.5;8.0;8.6;9.0+PTX",
     ("2.12", "13.0"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
     ("2.12", "13.2"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    ("2.13", "12.6"): "7.0;7.5;8.0;8.6;9.0+PTX",
+    ("2.13", "13.0"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    ("2.13", "13.2"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    ("2.14", "12.6"): "7.0;7.5;8.0;8.6;9.0+PTX",
+    ("2.14", "13.0"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
+    ("2.14", "13.2"): "7.5;8.0;8.6;9.0;10.0;12.0+PTX",
 }
 
 # The glibc version to use for each PyTorch version, for manylinux builds.
@@ -129,6 +146,8 @@ TORCH_GLIBC_VERSION: dict[str, str] = {
     "2.10": "2_28",
     "2.11": "2_28",
     "2.12": "2_28",
+    "2.13": "2_28",
+    "2.14": "2_28",
 }
 
 AUDITWHEEL_BLANKET_EXCLUDES = [
@@ -289,11 +308,11 @@ def main() -> None:
                 row
                 for row in rows
                 if row["target-arch"] == "x86_64"
-                and row["torch-version"] == "2.10.0"
-                and row["python-version"] == "3.12"
+                and row["torch-version"] == "2.14.1"
+                and row["python-version"] == "3.14"
                 and row["cuda-version"] == cuda_version
             )
-            for cuda_version in ("12.8", "13.0")
+            for cuda_version in ("12.6", "13.2")
         ]
     print(json.dumps(rows))
 
