@@ -1,0 +1,20 @@
+--- a/build_tools/utils.py
++++ b/build_tools/utils.py
+@@ -329,11 +329,16 @@
+         cuda_root = Path(nvidia.__file__).parent
+     else:
+         cuda_root = Path(nvidia.__path__[0])  # namespace
+-    return [
++    include_dirs = [
+         subdir / "include"
+         for subdir in cuda_root.iterdir()
+         if subdir.is_dir() and (subdir / "include").is_dir()
+     ]
++    # Runtime wheels omit nvcc's crt headers; keep the toolkit as a fallback.
++    # Wheel headers come first so the required cuDNN version takes precedence.
++    if cuda_toolkit_include_path() is not None:
++        include_dirs.append(cuda_toolkit_include_path())
++    return include_dirs
+ 
+ 
+ @functools.lru_cache(maxsize=None)
