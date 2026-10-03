@@ -95,7 +95,7 @@ def test_astral_wheel_provenance(
     provenance = json.loads(Path(package.locate_file(sbom)).read_text())
     assert provenance["source"] == {
         "repository": "https://github.com/NVIDIA/TransformerEngine",
-        "tag": "v2.17",
+        "tag": "v2.17.1",
         "commit": "4220403e831d29e93868f7793693ea83f6b8b05b",
     }
     assert provenance["build"]["repository"] == (

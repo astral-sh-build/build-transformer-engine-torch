@@ -9,7 +9,7 @@ Python, PyTorch, CUDA, and CPU architectures.
 Following the PyTorch convention, artifacts are published to a separate index
 for each CUDA version. Each wheel has a local version suffix that identifies the
 CUDA and PyTorch versions it was built against, such as
-`transformer-engine-torch==2.17.0+cu.12.8.torch.2.11`, and requires the matching
+`transformer-engine-torch==2.17.1+cu.12.8.torch.2.11`, and requires the matching
 PyTorch release.
 
 Pre-built wheels are available on
@@ -58,11 +58,11 @@ the local machine or substitute Transformer Engine packages from PyPI.
 
 ## Supported versions
 
-Wheels are available for Transformer Engine 2.17.0:
+Wheels are available for Transformer Engine 2.17.1:
 
-- [`2.17.0`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.17)
+- [`2.17.1`](https://github.com/astral-sh-build/build-transformer-engine-torch/releases/tag/v2.17.1)
 
-Transformer Engine 2.17.0 supports the following combinations:
+Transformer Engine 2.17.1 supports the following combinations:
 
 | PyTorch | Python    | `x86_64` CUDA          | `aarch64` CUDA         |
 | ------- | --------- | ---------------------- | ---------------------- |
