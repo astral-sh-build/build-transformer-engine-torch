@@ -250,6 +250,9 @@ def main() -> None:
         torch_version = Version(row["torch-version"])
         row["MATRIX_TORCH_VERSION"] = f"{torch_version.major}.{torch_version.minor}"
 
+        # NCCL EP uses PyTorch symmetric-memory headers introduced in 2.11.
+        row["NVTE_WITH_NCCL_EP"] = "1" if torch_version >= Version("2.11") else "0"
+
         # `MATRIX_PYTHON_VERSION`: same as `python-version`, but with the dot removed
         row["MATRIX_PYTHON_VERSION"] = row["python-version"].replace(".", "")
 
