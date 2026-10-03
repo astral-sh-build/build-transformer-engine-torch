@@ -33,6 +33,7 @@ ARCH_TORCH_PAIRS = {
 }
 
 # Supported Python versions for each PyTorch version.
+# The default TE fuser uses torch.compile, which does not support Python 3.15.
 # See: https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
 TORCH_PYTHON_SUPPORT = {
     "2.4": ["3.9", "3.10", "3.11", "3.12"],
@@ -44,8 +45,8 @@ TORCH_PYTHON_SUPPORT = {
     "2.10": ["3.10", "3.11", "3.12", "3.13", "3.14"],
     "2.11": ["3.10", "3.11", "3.12", "3.13", "3.14"],
     "2.12": ["3.10", "3.11", "3.12", "3.13", "3.14"],
-    "2.13": ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"],
-    "2.14": ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"],
+    "2.13": ["3.10", "3.11", "3.12", "3.13", "3.14"],
+    "2.14": ["3.10", "3.11", "3.12", "3.13", "3.14"],
 }
 
 # Minimum and maximum CUDA versions for each PyTorch version.
@@ -308,7 +309,7 @@ def main() -> None:
                 for row in rows
                 if row["target-arch"] == "x86_64"
                 and row["torch-version"] == "2.14.1"
-                and row["python-version"] == "3.15"
+                and row["python-version"] == "3.14"
                 and row["cuda-version"] == cuda_version
             )
             for cuda_version in ("12.6", "13.2")
