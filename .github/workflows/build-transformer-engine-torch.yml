@@ -139,8 +139,10 @@ jobs:
             pip install typing-extensions==4.16.0 &&
             if [ "${MATRIX_CUDA_VERSION}" = "129" ] && [ "${MATRIX_TORCH_VERSION}" = "2.10" ]; then uv pip install --system cuda-bindings==12.9.4; fi &&
             uv pip install --system --index-strategy unsafe-first-match torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
+            uv pip install --system --no-deps "nvidia-cudnn-cu${MATRIX_CUDA_VERSION:0:2}>=9.12,<10" &&
             bash build_scripts/prepare_for_build.sh ${{ steps.transformer-engine-version.outputs.version }}
           CIBW_ENVIRONMENT: >
+            NVTE_BUILD_USE_NVIDIA_WHEELS=1
             PATH=$PATH:/root/.local/bin
             CUDA_HOME="/usr/local/cuda-${{ env.MANYLINUX_CUDA_VERSION }}"
             LIBRARY_PATH="/usr/lib64"
