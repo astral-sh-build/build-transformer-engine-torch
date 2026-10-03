@@ -302,18 +302,9 @@ def main() -> None:
         row["NVTE_CUDA_ARCHS"] = ";".join(nvte_cuda_archs)
 
     # For PR builds, test one representative wheel for each CUDA major.
+    # Temporarily validate every newly supported compatibility build.
     if os.environ.get("LIMIT_MATRIX") == "1":
-        rows = [
-            next(
-                row
-                for row in rows
-                if row["target-arch"] == "x86_64"
-                and row["torch-version"] == "2.14.1"
-                and row["python-version"] == "3.14"
-                and row["cuda-version"] == cuda_version
-            )
-            for cuda_version in ("12.6", "13.2")
-        ]
+        rows = [row for row in rows if row['torch-version'] in ('2.13.0', '2.14.1')]
     print(json.dumps(rows))
 
 
