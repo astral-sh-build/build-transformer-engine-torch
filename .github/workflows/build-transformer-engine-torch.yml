@@ -154,6 +154,7 @@ jobs:
             TORCH_CUDA_VERSION=${{ env.TORCH_CUDA_VERSION }}
             NVTE_CUDA_ARCHS=${{ env.NVTE_CUDA_ARCHS }}
             NVTE_PYTORCH_FORCE_CXX11_ABI=${{ matrix.cxx11-abi }}
+            NVTE_WITH_NCCL_EP=${{ matrix.NVTE_WITH_NCCL_EP }}
             NVTE_RELEASE_BUILD=1
             CI_AUDITWHEEL_EXCLUDES="${{ env.CI_AUDITWHEEL_EXCLUDES }}"
           CIBW_SKIP: "*musllinux*"
