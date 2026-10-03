@@ -1,0 +1,21 @@
+--- a/build_tools/pytorch.py
++++ b/build_tools/pytorch.py
+@@ -9,6 +9,7 @@
+ from importlib import metadata
+ 
+ import setuptools
++import torch
+ 
+ from .utils import (
+     all_files_in_dir,
+@@ -22,8 +23,9 @@
+ 
+ def install_requirements() -> List[str]:
+     """Install dependencies for TE/PyTorch extensions."""
++    torch_minor = ".".join(torch.__version__.split(".")[:2])
+     return [
+-        "torch>=2.1",
++        f"torch=={torch_minor}.*",
+         "einops",
+         "onnxscript",
+         "onnx",
